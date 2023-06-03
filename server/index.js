@@ -1,6 +1,7 @@
 import express, { response } from "express";
 import axios from "axios";
 import cors from "cors";
+import dotenv from "dotenv/config";
 const app = express();
 
 app.use(express.json());
@@ -15,8 +16,10 @@ app.post("/getWeather", async (req, res) => {
   try {
     const weatherFunc = async (city) => {
       try {
+        const key = process.env.APIKEY;
+
         const weather = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=27e5aba33fce5e94ffcd8533b8f9a10c`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`
         );
 
         if (weather.status === 200) {
